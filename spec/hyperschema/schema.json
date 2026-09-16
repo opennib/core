@@ -1,0 +1,404 @@
+{
+  "version": 1,
+  "schema": [
+    {
+      "name": "rpc-error",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "name",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "message",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "ack",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "error",
+          "type": "@opennib/rpc-error",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": []
+    },
+    {
+      "name": "transcript-entry",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 5,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "createdAt",
+          "required": true,
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "text",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "language",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "durationMs",
+          "required": true,
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "app",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "dictionary-entry",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "term",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "replacement",
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "createdAt",
+          "required": true,
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "init-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "historyDir",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "dictionaryDir",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "preload-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "modelPath",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "language",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "transcribe-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "samples",
+          "required": true,
+          "type": "buffer",
+          "version": 1
+        },
+        {
+          "name": "sampleRate",
+          "required": true,
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "durationMs",
+          "required": true,
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "modelPath",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "language",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "transcribe-file-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "wavPath",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "model",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "language",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "text-response",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "error",
+          "type": "@opennib/rpc-error",
+          "version": 1
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "model-load-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "model",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "language",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "cleaner-configure-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "modelPath",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "cleanup-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 2,
+      "fields": [
+        {
+          "name": "text",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "language",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "terms",
+          "array": true,
+          "type": "@opennib/dictionary-entry",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "history-append-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "entry",
+          "required": true,
+          "type": "@opennib/transcript-entry",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "history-list-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "limit",
+          "type": "uint",
+          "version": 1
+        },
+        {
+          "name": "before",
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "history-list-response",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "error",
+          "type": "@opennib/rpc-error",
+          "version": 1
+        },
+        {
+          "name": "entries",
+          "array": true,
+          "type": "@opennib/transcript-entry",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "dictionary-list-response",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": 0,
+      "fields": [
+        {
+          "name": "error",
+          "type": "@opennib/rpc-error",
+          "version": 1
+        },
+        {
+          "name": "entries",
+          "array": true,
+          "type": "@opennib/dictionary-entry",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "dictionary-remove-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "name": "model-progress",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "model",
+          "required": true,
+          "type": "string",
+          "version": 1
+        },
+        {
+          "name": "percent",
+          "required": true,
+          "type": "uint",
+          "version": 1
+        }
+      ]
+    }
+  ]
+}

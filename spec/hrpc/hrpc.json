@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "schema": [
+    {
+      "id": 0,
+      "name": "@opennib/init",
+      "request": {
+        "name": "@opennib/init-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 1,
+      "name": "@opennib/shutdown",
+      "request": {
+        "name": "@opennib/empty",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 2,
+      "name": "@opennib/transcriber-preload",
+      "request": {
+        "name": "@opennib/preload-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 3,
+      "name": "@opennib/transcribe",
+      "request": {
+        "name": "@opennib/transcribe-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/text-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 4,
+      "name": "@opennib/transcriber-unload-all",
+      "request": {
+        "name": "@opennib/empty",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 5,
+      "name": "@opennib/transcribe-file",
+      "request": {
+        "name": "@opennib/transcribe-file-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/text-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 6,
+      "name": "@opennib/model-load",
+      "request": {
+        "name": "@opennib/model-load-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 7,
+      "name": "@opennib/cleaner-configure",
+      "request": {
+        "name": "@opennib/cleaner-configure-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 8,
+      "name": "@opennib/cleaner-cleanup",
+      "request": {
+        "name": "@opennib/cleanup-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/text-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 9,
+      "name": "@opennib/history-append",
+      "request": {
+        "name": "@opennib/history-append-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 10,
+      "name": "@opennib/history-list",
+      "request": {
+        "name": "@opennib/history-list-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/history-list-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 11,
+      "name": "@opennib/history-clear",
+      "request": {
+        "name": "@opennib/empty",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 12,
+      "name": "@opennib/dictionary-list",
+      "request": {
+        "name": "@opennib/empty",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/dictionary-list-response",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 13,
+      "name": "@opennib/dictionary-add",
+      "request": {
+        "name": "@opennib/dictionary-entry",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 14,
+      "name": "@opennib/dictionary-remove",
+      "request": {
+        "name": "@opennib/dictionary-remove-request",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 15,
+      "name": "@opennib/dictionary-clear",
+      "request": {
+        "name": "@opennib/empty",
+        "stream": false
+      },
+      "response": {
+        "name": "@opennib/ack",
+        "stream": false
+      },
+      "version": 1
+    },
+    {
+      "id": 16,
+      "name": "@opennib/model-progress",
+      "request": {
+        "name": "@opennib/model-progress",
+        "send": true
+      },
+      "version": 1
+    }
+  ]
+}

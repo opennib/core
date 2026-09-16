@@ -1,0 +1,80 @@
+{
+  "name": "@opennib/core",
+  "version": "0.1.0",
+  "description": "Pure-TypeScript core for opennib: business logic, AI orchestration, storage, capability interfaces. Runtime-portable across Node, Bare, and Expo's Hermes.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./errors": {
+      "types": "./dist/errors.d.ts",
+      "import": "./dist/errors.js"
+    },
+    "./log": {
+      "types": "./dist/log.d.ts",
+      "import": "./dist/log.js"
+    },
+    "./interfaces": {
+      "types": "./dist/interfaces/index.d.ts",
+      "import": "./dist/interfaces/index.js"
+    },
+    "./whisper-transcriber": {
+      "types": "./dist/whisper-transcriber.d.ts",
+      "import": "./dist/whisper-transcriber.js"
+    },
+    "./llm-cleaner": {
+      "types": "./dist/llm-cleaner.d.ts",
+      "import": "./dist/llm-cleaner.js"
+    },
+    "./hypercore": {
+      "types": "./dist/storage/index.d.ts",
+      "import": "./dist/storage/index.js"
+    },
+    "./rpc": {
+      "types": "./dist/rpc/protocol.d.ts",
+      "import": "./dist/rpc/protocol.js"
+    },
+    "./hrpc": "./spec/hrpc/index.js",
+    "./hrpc/messages": "./spec/hrpc/messages.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "docs",
+    "spec",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "build:hrpc": "node scripts/build-hrpc.mjs",
+    "test": "rm -rf test-dist test/.tmp && tsc -p tsconfig.test.json && bare test-dist/test/all.js",
+    "test:bare": "npm run build && bare scripts/bare-smoke.mjs"
+  },
+  "dependencies": {
+    "@qvac/sdk": "0.16.0",
+    "hypercore": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "bare": "^1.16.0",
+    "brittle": "^4.1.0",
+    "hrpc": "^4.3.0",
+    "hyperschema": "^1.22.0",
+    "typescript": "^5.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpenNib/core.git"
+  },
+  "homepage": "https://github.com/OpenNib/core",
+  "bugs": {
+    "url": "https://github.com/OpenNib/core/issues"
+  }
+}

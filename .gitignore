@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+test-dist/
+test/.tmp/
+*.tgz
+
+# OS files
+.DS_Store
+
+# Logs
+*.log

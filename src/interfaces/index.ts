@@ -1,12 +1,13 @@
-export type { Recorder } from "./recorder.js"
-export type { Paster } from "./paster.js"
-export type { Storage } from "./storage.js"
-export type { Notifier } from "./notifier.js"
-export type { Hotkey, HotkeyHandlers } from "./hotkey.js"
-export type { ModelManager } from "./model-manager.js"
-export type { Permissions, PermissionState } from "./permissions.js"
-export type { History, HistoryListOptions } from "./history.js"
-export type { Dictionary } from "./dictionary.js"
-export type { Transcriber } from "./transcriber.js"
-export type { Cleaner } from "./cleaner.js"
-export type { Settings, SettingsSnapshot } from "./settings.js"
+export type { Recorder } from "./recorder.js";
+export type { Paster } from "./paster.js";
+export type { Storage } from "./storage.js";
+export type { Notifier } from "./notifier.js";
+export type { Hotkey, HotkeyHandlers } from "./hotkey.js";
+export type { ModelManager } from "./model-manager.js";
+export type { Permissions, PermissionState } from "./permissions.js";
+export type { History, HistoryListOptions } from "./history.js";
+export type { Dictionary } from "./dictionary.js";
+export type { Transcriber } from "./transcriber.js";
+export type { Cleaner } from "./cleaner.js";
+export type { Settings, SettingsSnapshot } from "./settings.js";
+export type { StorageFs } from "./storage-fs.js";

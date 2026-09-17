@@ -1,5 +1,14 @@
 # @opennib/core
 
+<p>
+  <a href="https://github.com/tetherto/qvac"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tetherto/qvac/refs/heads/main/docs/branding/qvac-badge-inline-green-dark.svg">
+    <img alt="Built with QVAC" src="https://raw.githubusercontent.com/tetherto/qvac/refs/heads/main/docs/branding/qvac-badge-inline-green-light.svg">
+  </picture></a>
+  <a href="https://www.npmjs.com/package/@opennib/core"><img alt="npm version" src="https://img.shields.io/npm/v/%40opennib%2Fcore?label=npm&labelColor=4b5563&color=1f6feb&style=flat"></a>
+  <a href="./LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-1f6feb?style=flat&labelColor=4b5563"></a>
+</p>
+
 Runtime-portable core for building **local, private dictation**: on-device Whisper transcription and LLM transcript cleanup (via [`@qvac/sdk`](https://www.npmjs.com/package/@qvac/sdk)), append-only [Hypercore](https://github.com/holepunchto/hypercore) storage for history and a custom dictionary, and a typed, append-only RPC contract to drive it all from any UI.
 
 No cloud, no telemetry — audio and transcripts never leave the device.

@@ -1,24 +1,20 @@
 // Hand-written type surface for the generated (untyped) HRPC client/server in
-// `spec/hrpc/index.js`. The generated file is JavaScript with no `.d.ts`, and
-// `spec/` is deliberately kept out of the TypeScript build, so consumers type
-// the `@opennib/core/hrpc` import through an ambient `declare module` that
-// mirrors this file.
+// `spec/hrpc/index.js`. The generator emits plain JavaScript, so this file is
+// what `package.json` exports as the `types` of `@opennib/core/hrpc`:
+// consumers import the module and get these shapes automatically.
 //
-// This file is the CANONICAL copy of that declaration. It is NOT wired into a
-// tsconfig itself (a package can't reach across the package boundary into
-// another package's `spec/`), so each consuming package (desktop, mobile)
-// carries its own ambient `declare module "@opennib/core/hrpc"` block that
-// reproduces the shapes below, reusing `TranscriptEntry` / `DictionaryEntry`
-// from `@opennib/core`. Keep those blocks in sync with this file when the
-// contract grows (regenerate via `npm run build:hrpc`).
+// It lives OUTSIDE `spec/` on purpose — `spec/` is 100% generator output and
+// may be wiped and rebuilt; this file is maintained by hand. When the contract
+// grows (`npm run build:hrpc`), add the matching request/response interface
+// and method here in the same change.
 //
 // Every command method resolves to a response object whose `error` is either
-// `null` (success) or `{ name, message }` (a worker-side failure that the
-// platform client rehydrates into the matching `OpennibError` via
-// `rehydrateError` from `@opennib/core/rpc`). A throwing handler HANGS the
-// caller, so worker handlers never throw — they return the error envelope.
+// `null` (success) or `{ name, message }` (a worker-side failure the client
+// rehydrates into the matching `OpennibError` via `rehydrateError` from
+// `@opennib/core/rpc`). A throwing handler HANGS the caller, so worker
+// handlers never throw — they return the error envelope.
 
-import type { DictionaryEntry, TranscriptEntry } from "@opennib/core"
+import type { DictionaryEntry, TranscriptEntry } from "../dist/types.js"
 
 /** `{ name, message }` on failure, `null` on success. Set on every response. */
 export interface HrpcError {

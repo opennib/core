@@ -1,6 +1,6 @@
 {
   "name": "@opennib/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pure-TypeScript core for opennib: business logic, AI orchestration, storage, capability interfaces. Runtime-portable across Node, Bare, and Expo's Hermes.",
   "license": "MIT",
   "type": "module",
@@ -63,15 +63,15 @@
   },
   "dependencies": {
     "@qvac/sdk": "0.16.0",
-    "hypercore": "^11.0.1"
+    "hrpc": "^4.3.0",
+    "hypercore": "^11.0.1",
+    "hyperschema": "^1.22.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "bare": "^1.16.0",
     "bare-runtime": "^1.31.0",
     "brittle": "^4.1.0",
-    "hrpc": "^4.3.0",
-    "hyperschema": "^1.22.0",
     "typescript": "^5.7.2"
   },
   "repository": {

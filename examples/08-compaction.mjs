@@ -1,11 +1,11 @@
-// Lesson 7 example — storage compaction. Simulates a user's existing data
+// Lesson 8 example — storage compaction. Simulates a user's existing data
 // (40 expired + 5 live transcripts, a dictionary with removals), then opens
 // the stores the way the production workers do — with a `StorageFs` built on
 // bare-fs — and proves the expired data is physically gone from disk while
 // everything visible is unchanged. Finally simulates a crash mid-compaction
 // and shows the next open recovering.
 //
-//   bare examples/07-compaction.mjs
+//   bare examples/08-compaction.mjs
 import fs from "bare-fs";
 import os from "bare-os";
 import path from "bare-path";

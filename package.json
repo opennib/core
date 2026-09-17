@@ -59,7 +59,8 @@
     "build": "tsc -p tsconfig.build.json",
     "build:hrpc": "node scripts/build-hrpc.mjs",
     "test": "rm -rf test-dist test/.tmp && tsc -p tsconfig.test.json && node scripts/run-bare.mjs test-dist/test/all.js",
-    "test:bare": "npm run build && node scripts/run-bare.mjs scripts/bare-smoke.mjs"
+    "test:bare": "npm run build && node scripts/run-bare.mjs scripts/bare-smoke.mjs",
+    "prepack": "npm run build"
   },
   "dependencies": {
     "@qvac/sdk": "0.16.0",
@@ -81,5 +82,8 @@
   "homepage": "https://github.com/OpenNib/core",
   "bugs": {
     "url": "https://github.com/OpenNib/core/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -39,7 +39,9 @@ const methods = new Map([
   ['@opennib/dictionary-clear', 15],
   [15, '@opennib/dictionary-clear'],
   ['@opennib/model-progress', 16],
-  [16, '@opennib/model-progress']
+  [16, '@opennib/model-progress'],
+  ['@opennib/dictate', 17],
+  [17, '@opennib/dictate']
 ])
 
 class HRPC {
@@ -63,7 +65,8 @@ class HRPC {
       ['@opennib/dictionary-add', getEncoding('@opennib/dictionary-entry')],
       ['@opennib/dictionary-remove', getEncoding('@opennib/dictionary-remove-request')],
       ['@opennib/dictionary-clear', getEncoding('@opennib/empty')],
-      ['@opennib/model-progress', getEncoding('@opennib/model-progress')]
+      ['@opennib/model-progress', getEncoding('@opennib/model-progress')],
+      ['@opennib/dictate', getEncoding('@opennib/dictate-request')]
     ])
     this._responseEncodings = new Map([
       ['@opennib/init', getEncoding('@opennib/ack')],
@@ -81,7 +84,8 @@ class HRPC {
       ['@opennib/dictionary-list', getEncoding('@opennib/dictionary-list-response')],
       ['@opennib/dictionary-add', getEncoding('@opennib/ack')],
       ['@opennib/dictionary-remove', getEncoding('@opennib/ack')],
-      ['@opennib/dictionary-clear', getEncoding('@opennib/ack')]
+      ['@opennib/dictionary-clear', getEncoding('@opennib/ack')],
+      ['@opennib/dictate', getEncoding('@opennib/text-response')]
     ])
     this._rpc = new RPC(stream, async (req) => {
       const command = methods.get(req.command)
@@ -247,6 +251,10 @@ class HRPC {
     return this._callSync('@opennib/model-progress', args)
   }
 
+  async dictate(args) {
+    return this._call('@opennib/dictate', args)
+  }
+
   onInit(responseFn) {
     this._handlers['@opennib/init'] = responseFn
   }
@@ -313,6 +321,10 @@ class HRPC {
 
   onModelProgress(responseFn) {
     this._handlers['@opennib/model-progress'] = responseFn
+  }
+
+  onDictate(responseFn) {
+    this._handlers['@opennib/dictate'] = responseFn
   }
 
   _requestIsStream(command) {

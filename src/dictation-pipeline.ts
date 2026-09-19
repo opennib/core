@@ -11,6 +11,7 @@ import type {
   Transcriber,
 } from "./interfaces/index.js"
 import { log } from "./log.js"
+import { hasLikelySpeech } from "./speech-gate.js"
 import { transcribe } from "./transcribe.js"
 import type { DictionaryEntry, TranscriptEntry } from "./types.js"
 
@@ -124,6 +125,14 @@ export class DictationPipeline {
     } catch (err) {
       log.error("recorder stop failed", { error: errorMessage(err) })
       this.notifyError("Recording failed", err)
+      return
+    }
+
+    // Whisper hallucinates on silence ("you", "Thank you."). Don't ask it.
+    if (!hasLikelySpeech(frame)) {
+      log.info("no speech detected; skipping transcription", {
+        durationMs: frame.durationMs,
+      })
       return
     }
 

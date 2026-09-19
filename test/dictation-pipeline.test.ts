@@ -26,16 +26,26 @@ import {
 
 import { DictationPipeline, type PipelineState } from "../src/dictation-pipeline.js"
 
+/** One second of a 220 Hz tone at -20 dBFS: unambiguously "speech" to the gate. */
+function speechFrame(durationMs = 1000): AudioFrame {
+  const n = Math.round((WHISPER_SAMPLE_RATE_HZ * durationMs) / 1000)
+  const samples = new Float32Array(n)
+  for (let i = 0; i < n; i++) samples[i] = 0.1 * Math.sin((2 * Math.PI * 220 * i) / WHISPER_SAMPLE_RATE_HZ)
+  return { samples, sampleRate: WHISPER_SAMPLE_RATE_HZ, durationMs }
+}
+
+/** One second of digital silence. */
+function silentFrame(durationMs = 1000): AudioFrame {
+  const n = Math.round((WHISPER_SAMPLE_RATE_HZ * durationMs) / 1000)
+  return { samples: new Float32Array(n), sampleRate: WHISPER_SAMPLE_RATE_HZ, durationMs }
+}
+
 class FakeRecorder implements Recorder {
   starts = 0
   stops = 0
   startError: unknown = null
   stopError: unknown = null
-  frame: AudioFrame = {
-    samples: new Float32Array(WHISPER_SAMPLE_RATE_HZ),
-    sampleRate: WHISPER_SAMPLE_RATE_HZ,
-    durationMs: 1000,
-  }
+  frame: AudioFrame = speechFrame()
 
   async start(): Promise<void> {
     this.starts++
@@ -410,8 +420,8 @@ test("DictationPipeline: wraps non-OpennibError thrown from the transcriber", as
   await flushAsync()
 
   t.is(harness.notifier.notifications[0]?.title, "Transcription failed")
-  // transcribe() wraps non-OpennibError as TranscriptionError("transcription failed", cause)
-  t.is(harness.notifier.notifications[0]?.body, "transcription failed")
+  // transcribe() wraps non-OpennibError as TranscriptionError carrying the cause's message
+  t.ok(harness.notifier.notifications[0]?.body.startsWith("transcription failed: "))
 })
 
 test("DictationPipeline: notifies and skips history when paste fails", async (t) => {
@@ -587,4 +597,43 @@ test("DictationPipeline: does not blow up when the state listener throws", async
   await h.pipeline.endCycle()
   await flushAsync()
   t.alike(h.paster.pastes, ["hello world"])
+})
+
+test("DictationPipeline: a silent frame is not transcribed, pasted, or recorded", async (t) => {
+  const harness = build()
+  harness.recorder.frame = silentFrame()
+  await harness.pipeline.beginCycle()
+  await harness.pipeline.endCycle()
+  await flushAsync()
+
+  t.is(harness.recorder.stops, 1)
+  t.is(harness.transcriber.calls.length, 0)
+  t.alike(harness.paster.pastes, [])
+  t.alike(harness.history.entries, [])
+  t.is(harness.notifier.notifications.length, 0)
+  t.is(harness.pipeline.currentState(), "idle")
+})
+
+test("DictationPipeline: an accidental tap (too short) is not transcribed", async (t) => {
+  const harness = build()
+  harness.recorder.frame = speechFrame(120)
+  await harness.pipeline.beginCycle()
+  await harness.pipeline.endCycle()
+  await flushAsync()
+
+  t.is(harness.transcriber.calls.length, 0)
+  t.alike(harness.paster.pastes, [])
+})
+
+test("DictationPipeline: a quiet-but-audible frame still reaches the transcriber", async (t) => {
+  const harness = build()
+  const frame = speechFrame()
+  // -30 dBFS tone: quiet speech, well above the gate.
+  for (let i = 0; i < frame.samples.length; i++) frame.samples[i] = (frame.samples[i] ?? 0) * 0.3
+  harness.recorder.frame = frame
+  await harness.pipeline.beginCycle()
+  await harness.pipeline.endCycle()
+  await flushAsync()
+
+  t.is(harness.transcriber.calls.length, 1)
 })

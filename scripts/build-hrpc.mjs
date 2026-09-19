@@ -176,6 +176,18 @@ ns.register({
   fields: [{ name: "id", type: "string", required: true }],
 })
 
+// One push-to-talk cycle run by the worker-hosted DictationPipeline: the
+// host records a WAV, the worker gates, transcribes, cleans, appends history
+// and returns the final text (null when the recording had no speech).
+ns.register({
+  name: "dictate-request",
+  fields: [
+    { name: "wavPath", type: "string", required: true },
+    { name: "model", type: "string", required: true },
+    { name: "language", type: "string", required: true },
+  ],
+})
+
 // Worker → host push during a model download/load (send-only, no reply).
 ns.register({
   name: "model-progress",
@@ -216,6 +228,7 @@ command("dictionary-list", "@opennib/empty", "@opennib/dictionary-list-response"
 command("dictionary-add", "@opennib/dictionary-entry")
 command("dictionary-remove", "@opennib/dictionary-remove-request")
 command("dictionary-clear", "@opennib/empty")
+command("dictate", "@opennib/dictate-request", "@opennib/text-response")
 
 rpc.register({
   name: "model-progress",

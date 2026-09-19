@@ -61,6 +61,17 @@ export interface HrpcTextResponse {
   readonly text: string | null
 }
 
+/**
+ * One push-to-talk cycle run by the worker-hosted `DictationPipeline`:
+ * speech gate → transcribe → cleanup → history. `text` in the response is
+ * null when the recording had no speech.
+ */
+export interface HrpcDictateRequest {
+  readonly wavPath: string
+  readonly model: string
+  readonly language: string
+}
+
 export interface HrpcModelLoadRequest {
   readonly model: string
   readonly language: string
@@ -135,6 +146,7 @@ export declare class HRPC {
   dictionaryAdd(args: DictionaryEntry): Promise<HrpcAck>
   dictionaryRemove(args: HrpcDictionaryRemoveRequest): Promise<HrpcAck>
   dictionaryClear(args: Record<string, never>): Promise<HrpcAck>
+  dictate(args: HrpcDictateRequest): Promise<HrpcTextResponse>
 
   /** Send-only event (fire-and-forget, no reply). */
   modelProgress(args: HrpcModelProgress): void
@@ -156,6 +168,7 @@ export declare class HRPC {
   onDictionaryAdd(fn: HrpcHandler<DictionaryEntry, HrpcAck>): void
   onDictionaryRemove(fn: HrpcHandler<HrpcDictionaryRemoveRequest, HrpcAck>): void
   onDictionaryClear(fn: HrpcHandler<Record<string, never> | null, HrpcAck>): void
+  onDictate(fn: HrpcHandler<HrpcDictateRequest, HrpcTextResponse>): void
 
   /** Received `modelProgress` pushes (send-only handler, returns nothing). */
   onModelProgress(fn: (req: HrpcModelProgress) => void | Promise<void>): void

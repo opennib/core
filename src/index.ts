@@ -74,3 +74,5 @@ export type {
   WhisperModelConfig,
   WhisperModelConfigOptions,
 } from "./whisper-config.js";
+export { hasLikelySpeech, measurePeak, measureRms } from "./speech-gate.js"
+export { decodeWav, encodeWavPcm16 } from "./audio/wav.js"

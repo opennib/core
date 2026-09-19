@@ -8,6 +8,8 @@ import "./errors.test.js";
 import "./transcribe.test.js";
 import "./cleanup.test.js";
 import "./dictation-pipeline.test.js";
+import "./speech-gate.test.js";
+import "./audio-wav.test.js";
 import "./whisper-config.test.js";
 import "./whisper-transcriber.test.js";
 import "./llm-cleaner.test.js";

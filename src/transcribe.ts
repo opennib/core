@@ -61,6 +61,9 @@ export async function transcribe(frame: AudioFrame, deps: TranscribeDeps): Promi
     return await transcriber.transcribe(frame, modelPath, language ?? DEFAULT_LANGUAGE)
   } catch (err) {
     if (err instanceof OpennibError) throw err
-    throw new TranscriptionError("transcription failed", err)
+    // Keep the engine's own message in ours: hosts log `error.message`, and
+    // "transcription failed" alone has cost real debugging time.
+    const detail = err instanceof Error ? err.message : String(err)
+    throw new TranscriptionError(`transcription failed: ${detail}`, err)
   }
 }

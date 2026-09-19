@@ -1,6 +1,6 @@
 {
   "name": "@opennib/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Pure-TypeScript core for opennib: business logic, AI orchestration, storage, capability interfaces. Runtime-portable across Node, Bare, and Expo's Hermes.",
   "license": "MIT",
   "type": "module",

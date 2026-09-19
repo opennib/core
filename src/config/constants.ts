@@ -11,6 +11,24 @@ export const WHISPER_SAMPLE_RATE_HZ = 16_000
 /** Hard cap for a single dictation utterance. */
 export const MAX_AUDIO_DURATION_SECONDS = 60
 
+/**
+ * Speech gate (see `speech-gate.ts`). Frames shorter than this are treated
+ * as an accidental tap of the hotkey, not an utterance.
+ */
+export const MIN_UTTERANCE_MS = 250
+
+/**
+ * Speech gate levels (full scale = 1.0). A frame must clear BOTH to reach
+ * Whisper. Tuned on real recordings: phone and simulator mics deliver
+ * speech at -50 to -37 dBFS RMS with peaks of 0.03–0.09, far quieter than a
+ * desktop mic with automatic gain, while digital silence is exactly 0 and a
+ * dropped mic feed stays below 0.002 peak. So: an RMS floor at -60 dBFS
+ * that only rejects near-silence, plus a peak floor at -34 dBFS that even
+ * quiet speech exceeds but a faint noise floor does not.
+ */
+export const MIN_SPEECH_RMS = 0.001
+export const MIN_SPEECH_PEAK = 0.02
+
 /** Hard cap on a single transcript text length, after cleanup. */
 export const MAX_TRANSCRIPT_LENGTH = 10_000
 

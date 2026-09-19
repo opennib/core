@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "schema": [
     {
       "name": "rpc-error",
@@ -397,6 +397,32 @@
           "required": true,
           "type": "uint",
           "version": 1
+        }
+      ]
+    },
+    {
+      "name": "dictate-request",
+      "namespace": "opennib",
+      "compact": false,
+      "flagsPosition": -1,
+      "fields": [
+        {
+          "name": "wavPath",
+          "required": true,
+          "type": "string",
+          "version": 2
+        },
+        {
+          "name": "model",
+          "required": true,
+          "type": "string",
+          "version": 2
+        },
+        {
+          "name": "language",
+          "required": true,
+          "type": "string",
+          "version": 2
         }
       ]
     }

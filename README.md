@@ -72,6 +72,19 @@ const text = await transcriber.transcribe(
 
 Exactly one model stays resident, keyed by `(modelPath, language)` — whisper.cpp bakes the language in at load time, so a language or model switch unloads the previous context and loads the new one. Call `transcriber.unloadAll()` at shutdown.
 
+Two helpers the pipeline uses that hosts may want directly:
+
+```ts
+import { decodeWav, hasLikelySpeech } from "@opennib/core";
+
+const frame = decodeWav(bytes); // PCM16 or float32 WAVE → mono AudioFrame
+if (!hasLikelySpeech(frame)) {
+  // Too short (< 250 ms) or too quiet: whisper would hallucinate ("you",
+  // "Thank you.") on this, so the pipeline skips it. Thresholds are tuned on
+  // phone-mic recordings; see config/constants.ts.
+}
+```
+
 > Under Bare, register the SDK plugin once before the first call:
 > `const { plugins } = await import("@qvac/sdk")` +
 > `plugins([whisperPlugin])` with the plugin from
@@ -320,25 +333,20 @@ unwrap(
   }),
 );
 
-// 3. INTERACT — models come from the SDK registry on mobile: load by catalog id first
-unwrap(await rpc.modelLoad({ model: "tiny", language: "auto" })); // downloads on first use, reports progress
-const { text } = unwrap(
-  await rpc.transcribeFile({ wavPath, model: "tiny", language: "auto" }),
-);
+// 3. INTERACT — warm the model once (downloads on first use, reports progress) …
+unwrap(await rpc.modelLoad({ model: "tiny", language: "auto" }));
 
-unwrap(
-  await rpc.historyAppend({
-    entry: {
-      id,
-      createdAt: Date.now(),
-      text,
-      language: "auto",
-      durationMs,
-      app: null,
-    },
-  }),
+// … then one `dictate` per push-to-talk: the worker runs core's
+// DictationPipeline on the recorded file — speech gate → whisper → cleanup
+// → history append — and returns the final text (null when the recording
+// had no speech). The app only records and displays; history is already
+// written when this resolves.
+const { text } = unwrap(
+  await rpc.dictate({ wavPath, model: "tiny", language: "auto" }),
 );
 const { entries } = unwrap(await rpc.historyList({ limit: 20, before: null }));
+
+// `transcribeFile` still exists for hosts that orchestrate themselves.
 
 unwrap(
   await rpc.dictionaryAdd({

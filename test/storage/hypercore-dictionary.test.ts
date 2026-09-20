@@ -6,7 +6,7 @@ import { HypercoreDictionary } from "../../src/storage/hypercore-dictionary.js"
 
 // Bare has no node:fs/os/path, and we are NOT adding bare-fs. Hypercore creates
 // missing directories, and relative paths resolve against CWD (tests always run
-// from packages/core), so each test opens its store at a fresh unique relative
+// from the package root), so each test opens its store at a fresh unique relative
 // path. The npm test script wipes `test/.tmp` before each run — no in-test fs
 // cleanup — and every opened store is closed via t.teardown.
 let counter = 0

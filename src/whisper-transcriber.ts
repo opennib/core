@@ -28,7 +28,7 @@ export interface WhisperSdk {
  *     both `f32le` and `s16le` raw bytes);
  *
  *   - a path to a WAV/MP3/etc. file that the SDK runs through ffmpeg into
- *     `audioFormat` (filePath route — what `qvac-dictate` POC uses, well
+ *     `audioFormat` (filePath route — the reference implementation's path, well
  *     exercised in production).
  *
  * `audioFormat` is consumed at `loadModel()` time via `modelConfig.audio_format`

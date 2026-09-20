@@ -5,7 +5,7 @@
 // common denominator — if it works here, it almost certainly works in
 // Hermes too.
 //
-// Run via:  npm run test:bare -w @opennib/core
+// Run via:  npm run test:bare
 // Which is: npm run build && bare scripts/bare-smoke.mjs
 
 import {

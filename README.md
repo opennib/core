@@ -9,8 +9,6 @@
   <a href="./LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-1f6feb?style=flat&labelColor=4b5563"></a>
 </p>
 
-**Website:** [opennib.com](https://opennib.com) · **Privacy policy:** [opennib.com/privacy](https://opennib.com/privacy)
-
 Runtime-portable core for building **local, private dictation**: on-device Whisper transcription and LLM transcript cleanup (via [`@qvac/sdk`](https://www.npmjs.com/package/@qvac/sdk)), append-only [Hypercore](https://github.com/holepunchto/hypercore) storage for history and a custom dictionary, and a typed, append-only RPC contract to drive it all from any UI.
 
 No cloud, no telemetry — audio and transcripts never leave the device.
